@@ -1,16 +1,16 @@
-export const App = () => {
-  return (
-    <div
-      style={{
-        height: '100vh',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        fontSize: 40,
-        color: '#010101'
-      }}
-    >
-      React homework template
-    </div>
-  );
-};
+import { Component } from 'react';
+import { Search } from './input/input';
+
+export class App extends Component {
+  state = {
+    keyword: '',
+  };
+
+  handleSubmit = (keyword) => {
+    this.setState({ keyword })
+  }
+
+  render() {
+    return <Search onSearch={this.handleSubmit} />;
+  }
+}
