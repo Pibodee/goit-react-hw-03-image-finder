@@ -1,5 +1,7 @@
 import { Component } from 'react';
-import { toast } from 'react-hot-toast';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 import { BiSearchAlt2 } from 'react-icons/bi';
 
 export class Searchbar extends Component {
@@ -14,7 +16,8 @@ export class Searchbar extends Component {
   handleSubmit = e => {
     e.preventDefault();
     if (!this.state.value) {
-      return toast.error('Please, enter some keywords');
+      toast.error('Please, enter some keywords!')
+      return
     }
 
     this.props.onSearch(this.state.value);
@@ -43,7 +46,8 @@ export class Searchbar extends Component {
             </span>
           </button>
         </form>
+        <ToastContainer autoClose={2000} />
       </div>
-    )
+    );
   }
 }
