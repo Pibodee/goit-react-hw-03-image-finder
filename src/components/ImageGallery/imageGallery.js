@@ -1,6 +1,7 @@
 import { getImages } from 'components/Fetch/fetch';
 import { Component } from 'react';
 import { GalleryItem } from './imageGalleryItem';
+import { Error } from 'components/RejectedError/error';
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -15,7 +16,7 @@ export class ImageGallery extends Component {
 
   componentDidUpdate(prevProps) {
     if (prevProps.value !== this.props.value) {
-      this.setState({ status: 'pending'});
+      this.setState({ status: 'pending' });
       getImages(this.props.value)
         .then(images => {
           if (images.hits.length === 0) {
@@ -26,12 +27,12 @@ export class ImageGallery extends Component {
             });
             return;
           } else {
-            this.setState({ images, status: 'resolved' });
+            this.setState({ images: images.hits, status: 'resolved' });
           }
         })
         .catch(error => {
           this.setState({ error, status: 'rejected' });
-        })
+        });
     }
   }
   render() {
@@ -42,7 +43,7 @@ export class ImageGallery extends Component {
     if (status === 'resolved') {
       return (
         <ul className="ImageGallery">
-          {images.hits.map(({ id, webformatURL, tags }) => {
+          {images.map(({ id, webformatURL, tags }) => {
             return (
               <GalleryItem key={id} webformatURL={webformatURL} tags={tags} />
             );
@@ -52,7 +53,7 @@ export class ImageGallery extends Component {
       );
     }
     if (status === 'rejected') {
-      return <h1>{'Something went wrong!'}</h1>;
+      return <Error />;
     }
   }
 }
