@@ -6,11 +6,18 @@ import { Toaster } from 'react-hot-toast';
 export class App extends Component {
   state = {
     keyword: '',
+    page: 1
   };
 
   handleSubmit = keyword => {
     this.setState({ keyword });
   };
+
+  handleLoadMore = () => {
+    this.setState(prevState => ({
+     page: prevState.page +1,
+    }))
+  }
 
   render() {
     return (
@@ -24,7 +31,7 @@ export class App extends Component {
         <Searchbar
           onSearch={this.handleSubmit}
         />
-        <ImageGallery value={this.state.keyword} />
+        <ImageGallery value={this.state.keyword} page={this.state.page} handleLoadMore={this.handleLoadMore} />
       </>
     );
   }
