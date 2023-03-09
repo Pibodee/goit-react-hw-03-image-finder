@@ -20,7 +20,7 @@ export class App extends Component {
   };
 
   handleSubmit = keyword => {
-    this.setState({ keyword });
+    this.setState({ keyword, page: 1 });
   };
 
   handleLoadMore = () => {
@@ -61,8 +61,8 @@ export class App extends Component {
               tags,
             })
           );
-          if (prevState.keyword !== this.state.keyword) {
-            this.setState({ images: [...images], status: 'resolved' });
+        if (prevState.keyword !== this.state.keyword) {
+            this.setState({ images: [...images], status: 'resolved' , page: 1});
           } else {
             this.setState({
               images: [...prevState.images, ...images],
@@ -71,7 +71,7 @@ export class App extends Component {
           }
         const totalPages = Math.ceil(data.totalHits / 12);
         if (this.state.page === totalPages && this.state.page > 1) {
-          toast.error('Sorry, you reached the end of results');
+          toast.done('Sorry, you reached the end of results');
           this.setState({moreImages: false})
         }
         
