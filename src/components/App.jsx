@@ -16,7 +16,7 @@ export class App extends Component {
     error: '',
     status: 'idle',
     isLoading: false,
-    moreImages: false
+    moreImages: false,
   };
 
   handleSubmit = keyword => {
@@ -30,16 +30,11 @@ export class App extends Component {
   };
 
   async componentDidUpdate(_, prevState) {
-    if (
-      prevState.keyword !== this.state.keyword ||
-      prevState.page !== this.state.page
-    ) {
+    const { keyword, page } = this.state;
+    if (prevState.keyword !== keyword || prevState.page !== page) {
       this.setState({ isLoading: true });
       try {
-        const data = await getImages(
-          this.state.keyword.trim(),
-          this.state.page
-        );
+        const data = await getImages(keyword.trim(), page);
         if (data.hits.length === 0) {
           toast.error('No matches found!');
           this.setState({
@@ -47,37 +42,34 @@ export class App extends Component {
             status: 'idle',
           });
           return;
-        } 
+        }
 
         this.setState({
           moreImages: data.hits.length === 12,
-        })
+        });
 
-          const images = data.hits.map(
-            ({ id, webformatURL, largeImageURL, tags }) => ({
-              id,
-              webformatURL,
-              largeImageURL,
-              tags,
-            })
-          );
-        if (prevState.keyword !== this.state.keyword) {
-            this.setState({ images: [...images], status: 'resolved' , page: 1});
-          } else {
-            this.setState({
-              images: [...prevState.images, ...images],
-              status: 'resolved',
-            });
-          }
-        const totalPages = Math.ceil(data.totalHits / 12);
-        if (this.state.page === totalPages && this.state.page > 1) {
-          toast.done('Sorry, you reached the end of results');
-          this.setState({moreImages: false})
+        const images = data.hits.map(
+          ({ id, webformatURL, largeImageURL, tags }) => ({
+            id,
+            webformatURL,
+            largeImageURL,
+            tags,
+          })
+        );
+        if (prevState.keyword !== keyword) {
+          this.setState({ images: [...images], status: 'resolved', page: 1 });
+        } else {
+          this.setState({
+            images: [...prevState.images, ...images],
+            status: 'resolved',
+          });
         }
-        
-        
+        const totalPages = Math.ceil(data.totalHits / 12);
+        if (page === totalPages && page > 1) {
+          toast.done('Sorry, you reached the end of results');
+          this.setState({ moreImages: false });
+        }
       } catch (error) {
-        console.log(this.state.images);
         this.setState({ error, status: 'rejected' });
       } finally {
         this.setState({ isLoading: false });
@@ -86,6 +78,7 @@ export class App extends Component {
   }
 
   render() {
+    const { isLoading, status, images, moreImages } = this.state;
     return (
       <>
         <Toaster
@@ -95,14 +88,18 @@ export class App extends Component {
           }}
         />
         <Searchbar onSearch={this.handleSubmit} />
-        {this.state.isLoading && <Loader />}
-        {this.state.status === 'resolved' && (
+        {isLoading && <Loader />}
+        {status === 'resolved' && (
           <>
-            <ImageGallery value={this.state.images} loadMore={this.handleLoadMore} moreImages={this.state.moreImages} />
+            <ImageGallery
+              value={images}
+              loadMore={this.handleLoadMore}
+              moreImages={moreImages}
+            />
             <ToastContainer autoClose={2000} />
           </>
         )}
-        {this.state.status === 'rejected' && <Error />}
+        {status === 'rejected' && <Error />}
       </>
     );
   }

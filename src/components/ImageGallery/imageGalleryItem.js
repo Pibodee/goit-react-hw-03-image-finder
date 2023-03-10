@@ -1,5 +1,6 @@
 import { Component } from "react";
 import { Modal } from "components/Modal/modal";
+import PropTypes from 'prop-types';
 
 export class GalleryItem extends Component {
   state = {
@@ -29,4 +30,12 @@ export class GalleryItem extends Component {
       </li>
     );
   }
+}
+
+
+GalleryItem.propTypes = {
+  image: PropTypes.shape({
+    webformatURL: PropTypes.string.isRequired,
+    tags: PropTypes.string
+  }).isRequired
 }

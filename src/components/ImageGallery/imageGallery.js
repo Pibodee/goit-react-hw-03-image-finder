@@ -1,5 +1,7 @@
 import { GalleryItem } from './imageGalleryItem';
 import { Button } from 'components/Button/button';
+import PropTypes from 'prop-types';
+
 export const ImageGallery = ({ value, loadMore, moreImages }) => {
   return (
     <div className='ListWrap'>
@@ -12,3 +14,12 @@ export const ImageGallery = ({ value, loadMore, moreImages }) => {
       </div>
   );
 };
+
+
+ImageGallery.propTypes = {
+  value: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+    })
+  )
+}
