@@ -4,8 +4,8 @@ export const ImageGallery = ({ value, loadMore, moreImages }) => {
   return (
     <div className='ListWrap'>
     <ul className="ImageGallery">
-      {value.map(({ id, webformatURL, tags }) => {
-        return <GalleryItem key={id} webformatURL={webformatURL} tags={tags} />;
+      {value.map(image => {
+        return <GalleryItem key={image.id} image={image} />;
       })}
     </ul>
       {moreImages &&<Button onClick={loadMore} />}
