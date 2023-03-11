@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import { ImageGallery } from 'components/ImageGallery/imageGallery';
-import { Searchbar } from 'components/Searchbar/Input';
+import { Searchbar } from 'components/Searchbar/input';
 import { Toaster } from 'react-hot-toast';
 import { getImages } from 'services/fetch';
 import { ToastContainer, toast } from 'react-toastify';
