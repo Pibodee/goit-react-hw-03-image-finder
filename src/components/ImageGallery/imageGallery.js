@@ -1,4 +1,4 @@
-import { GalleryItem } from './ImageGalleryItem';
+import { GalleryItem } from 'components/ImageGalleryItem/ImageGalleryItem';
 import PropTypes from 'prop-types';
 
 export const ImageGallery = ({ value }) => {
