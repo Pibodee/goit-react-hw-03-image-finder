@@ -11,11 +11,10 @@ export const ImageGallery = ({ value }) => {
   );
 };
 
-
 ImageGallery.propTypes = {
   value: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number.isRequired,
     })
-  )
-}
+  ),
+};

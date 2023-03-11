@@ -16,12 +16,12 @@ export class Searchbar extends Component {
   handleSubmit = e => {
     e.preventDefault();
     if (!this.state.value) {
-      toast.error('Please, enter some keywords!')
-      return
+      toast.error('Please, enter some keywords!');
+      return;
     }
 
     this.props.onSearch(this.state.value);
-    this.setState({value: ''})
+    this.setState({ value: '' });
   };
 
   render() {
@@ -53,5 +53,5 @@ export class Searchbar extends Component {
 }
 
 Searchbar.propTypes = {
-  onSearch: PropTypes.func.isRequired
-}
+  onSearch: PropTypes.func.isRequired,
+};

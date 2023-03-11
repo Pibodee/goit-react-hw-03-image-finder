@@ -1,5 +1,5 @@
 import { Component } from "react";
-import { Modal } from "components/Modal/Modal";
+import { Modal } from "components/Modal/mod";
 import PropTypes from 'prop-types';
 
 export class GalleryItem extends Component {
