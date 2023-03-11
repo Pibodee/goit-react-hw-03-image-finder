@@ -1,13 +1,13 @@
 import { Component } from 'react';
-import { ImageGallery } from 'components/ImageGallery/ImageGallery';
+import { ImageGallery } from 'components/ImageGallery/GalleryList';
 import { Searchbar } from 'components/Searchbar/Searchbar';
 import { Toaster } from 'react-hot-toast';
 import { getImages } from 'services/fetch';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Loader } from 'components/Loader/Loader';
-import { Error } from 'components/RejectedError/Error';
-import { Button } from 'components/Button/Button';
+import { Error } from 'components/RejectedError/RejectedError';
+import { Button } from 'components/Button/LoadMoreButton';
 
 export class App extends Component {
   state = {
