@@ -96,7 +96,7 @@ export class App extends Component {
             <ImageGallery
               value={images}
             />
-            {moreImages && <Button onClick={this.handleLoadMore} />}
+            {moreImages && !isLoading && <Button onClick={this.handleLoadMore} />}
             <ToastContainer autoClose={2000} />
           </div>
         )}
