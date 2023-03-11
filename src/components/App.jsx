@@ -21,7 +21,7 @@ export class App extends Component {
   };
 
   handleSubmit = keyword => {
-    this.setState({ keyword, page: 1 });
+    this.setState({ keyword, page: 1, status: 'idle' });
   };
 
   handleLoadMore = () => {
@@ -33,7 +33,7 @@ export class App extends Component {
   async componentDidUpdate(_, prevState) {
     const { keyword, page } = this.state;
     if (prevState.keyword !== keyword || prevState.page !== page) {
-      this.setState({ isLoading: true });
+      this.setState({ isLoading: true});
       try {
         const data = await getImages(keyword.trim(), page);
         if (data.hits.length === 0) {
@@ -58,12 +58,10 @@ export class App extends Component {
           })
         );
         if (prevState.keyword !== keyword) {
-          this.setState({isLoading: true, status: 'idle'})
-          this.setState({ images: [...images], status: 'resolved', page: 1 });
+          this.setState({ images: [...images], status: 'resolved'});
         } else {
           this.setState({
-            images: [...prevState.images, ...images],
-            status: 'resolved',
+            images: [...prevState.images, ...images]
           });
         }
         const totalPages = Math.ceil(data.totalHits / 12);
@@ -74,13 +72,13 @@ export class App extends Component {
       } catch (error) {
         this.setState({ error, status: 'rejected' });
       } finally {
-        this.setState({ isLoading: false });
+        this.setState({ isLoading: false});
       }
     }
   }
 
   render() {
-    const { isLoading, status, images, moreImages } = this.state;
+    const { isLoading, status, images, moreImages} = this.state;
     return (
       <>
         <Toaster
@@ -96,7 +94,7 @@ export class App extends Component {
             <ImageGallery
               value={images}
             />
-            {moreImages && !isLoading && <Button onClick={this.handleLoadMore} />}
+            {moreImages && <Button onClick={this.handleLoadMore} disabled={isLoading} text={isLoading? "Loading..." : "Load More"} />}
             <ToastContainer autoClose={2000} />
           </div>
         )}

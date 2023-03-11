@@ -1,7 +1,7 @@
 import { GalleryItem } from './ImageGalleryItem';
 import PropTypes from 'prop-types';
 
-export const ImageGallery = ({ value, loadMore, moreImages }) => {
+export const ImageGallery = ({ value }) => {
   return (
     <ul className="ImageGallery">
       {value.map(image => {
