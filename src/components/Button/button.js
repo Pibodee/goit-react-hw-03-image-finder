@@ -8,5 +8,7 @@ export const Button = ({onClick, disabled, text}) => {
 }
 
 Button.propTypes = {
-    onClick: PropTypes.func.isRequired
+    onClick: PropTypes.func.isRequired,
+    disabled: PropTypes.bool.isRequired,
+    text: PropTypes.string.isRequired
 }
