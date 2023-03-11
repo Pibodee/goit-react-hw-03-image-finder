@@ -66,7 +66,7 @@ export class App extends Component {
         }
         const totalPages = Math.ceil(data.totalHits / 12);
         if (page === totalPages && page > 1) {
-          toast.done('Sorry, you reached the end of results');
+          toast.done('You have reached the end of results');
           this.setState({ moreImages: false });
         }
       } catch (error) {

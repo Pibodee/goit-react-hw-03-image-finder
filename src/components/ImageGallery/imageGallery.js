@@ -3,13 +3,11 @@ import PropTypes from 'prop-types';
 
 export const ImageGallery = ({ value }) => {
   return (
-    <>
-      <ul className="ImageGallery">
-        {value.map(image => {
-          return <GalleryItem key={image.id} image={image} />;
-        })}
-      </ul>
-    </>
+    <ul className="ImageGallery">
+      {value.map(image => {
+        return <GalleryItem key={image.id} image={image} />;
+      })}
+    </ul>
   );
 };
 
