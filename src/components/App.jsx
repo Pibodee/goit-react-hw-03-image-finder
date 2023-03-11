@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import { ImageGallery } from 'components/ImageGallery/ImageGallery';
+import { ImageGallery } from 'components/ImageGallery/imageGallery';
 import { Searchbar } from 'components/Searchbar/Input';
 import { Toaster } from 'react-hot-toast';
 import { getImages } from 'services/fetch';
