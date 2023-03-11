@@ -1,12 +1,13 @@
 import { Component } from 'react';
-import { ImageGallery } from './ImageGallery/imageGallery';
-import { Searchbar } from './Searchbar/input';
+import { ImageGallery } from './ImageGallery/ImageGallery';
+import { Searchbar } from './Searchbar/Input';
 import { Toaster } from 'react-hot-toast';
 import { getImages } from 'services/fetch';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Loader } from 'components/Loader/Loader';
-import { Error } from 'components/RejectedError/error';
+import { Error } from 'components/RejectedError/Error';
+import { Button } from 'components/Button/Button';
 
 export class App extends Component {
   state = {
@@ -57,6 +58,7 @@ export class App extends Component {
           })
         );
         if (prevState.keyword !== keyword) {
+          this.setState({isLoading: true, status: 'idle'})
           this.setState({ images: [...images], status: 'resolved', page: 1 });
         } else {
           this.setState({
@@ -90,14 +92,13 @@ export class App extends Component {
         <Searchbar onSearch={this.handleSubmit} />
         {isLoading && <Loader />}
         {status === 'resolved' && (
-          <>
+          <div className="ListWrap">
             <ImageGallery
               value={images}
-              loadMore={this.handleLoadMore}
-              moreImages={moreImages}
             />
+            {moreImages && <Button onClick={this.handleLoadMore} />}
             <ToastContainer autoClose={2000} />
-          </>
+          </div>
         )}
         {status === 'rejected' && <Error />}
       </>

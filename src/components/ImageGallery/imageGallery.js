@@ -1,17 +1,13 @@
-import { GalleryItem } from './imageGalleryItem';
-import { Button } from 'components/Button/button';
+import { GalleryItem } from './ImageGalleryItem';
 import PropTypes from 'prop-types';
 
 export const ImageGallery = ({ value, loadMore, moreImages }) => {
   return (
-    <div className='ListWrap'>
     <ul className="ImageGallery">
       {value.map(image => {
         return <GalleryItem key={image.id} image={image} />;
       })}
     </ul>
-      {moreImages &&<Button onClick={loadMore} />}
-      </div>
   );
 };
 
